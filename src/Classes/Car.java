@@ -107,7 +107,7 @@ public class Car {
         this.counter = counter;
     };
     
-    public void get_total_score(){
+    public void define_quality(){
         Random random = new Random();
         if(random.nextFloat() < 0.4) {
             this.setBodywork_quality(0);
@@ -135,6 +135,18 @@ public class Car {
         
         this.total_quality = this.bodywork_quality + this.chasis_quality 
                              + this.engine_quality + this.wheels_quality;
+        
+        this.define_priority();
+    };
+    
+    public void define_priority(){
+        if (this.total_quality <= 1) {
+            this.priority = 3;
+        }else if(this.total_quality <=3){
+            this.priority = 2;
+        }else{
+            this.priority = 1;
+        };
     };
     
 };
