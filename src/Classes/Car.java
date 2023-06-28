@@ -111,31 +111,33 @@ public class Car {
         Random random = new Random();
         if(random.nextFloat() < 0.4) {
             this.setBodywork_quality(0);
+            System.out.println("Carroceria 0");
         }else{
             this.setBodywork_quality(1);
+            System.out.println("carroceria 1");
         };
         
         if (random.nextFloat() < 0.3) {
-            this.setBodywork_quality(0);
+            this.setChasis_quality(0);
         }else{
-            this.setBodywork_quality(1);
+            this.setChasis_quality(1);
         };
         
         if (random.nextFloat() < 0.5) {
-            this.setBodywork_quality(0);
+            this.setEngine_quality(0);
         }else{
-            this.setBodywork_quality(1);
+            this.setEngine_quality(1);
         };
         
         if(random.nextFloat() < 0.6){
-            this.setBodywork_quality(0);
+            this.setWheels_quality(0);
         }else{
-            this.setBodywork_quality(1);
+            this.setWheels_quality(1);
         };
         
         this.total_quality = this.bodywork_quality + this.chasis_quality 
                              + this.engine_quality + this.wheels_quality;
-        
+        System.out.println("Calidad del carro: " + Integer.toString(this.total_quality));
         this.define_priority();
     };
     
@@ -147,6 +149,7 @@ public class Car {
         }else{
             this.priority = 1;
         };
+        System.out.println("Prioridad del carro " + Integer.toString(this.priority) );
     };
     
 };

@@ -26,6 +26,10 @@ public class Administrator {
     public int counter;
     public Car car1;
     public Car car2;
+    public Car selected1;
+    public Car selected2;
+    public int lamborghini_counter;
+    public int bugatti_counter;
     
     public Administrator(Queue bugatti_reinforcent_queue, Queue lamborghini_reinforcement_queue, 
                          Queue priority1b, Queue priority2b, Queue priority3b,
@@ -39,6 +43,14 @@ public class Administrator {
         this.counter = counter;
         this.car1 = car1;
         this.car2 = car2;
+        this.selected1 = selected1;
+        this.selected2 = selected2;
+        this.priority1l = priority1l;
+        this.priority2l = priority2l;
+        this.priority3l = priority3l;
+        this.lamborghini_counter = lamborghini_counter;
+        this.bugatti_counter = bugatti_counter;
+        
     };
 
     public Queue getBugatti_reinforcent_queue() {
@@ -121,12 +133,15 @@ public class Administrator {
                 switch(car.priority){
                     case 1:
                         this.priority1b.enqueue(car);
+                        this.bugatti_counter ++;
                         break;
                     case 2:
                         this.priority2b.enqueue(car);
+                        this.bugatti_counter ++;
                         break;
                     case 3:
                         this.priority3b.enqueue(car);
+                        this.bugatti_counter ++;
                         break;
                 };
                 break;
@@ -134,12 +149,15 @@ public class Administrator {
                 switch(car.priority){
                     case 1:
                         this.priority1l.enqueue(car);
+                        this.lamborghini_counter ++;
                         break;
                     case 2:
                         this.priority2l.enqueue(car);
+                        this.lamborghini_counter ++;
                         break;
                     case 3:
                         this.priority3l.enqueue(car);
+                        this.lamborghini_counter ++;
                         break;
                 };
                 break;     
@@ -152,8 +170,12 @@ public class Administrator {
             if(random.nextFloat()<0.8){
                 if(random.nextFloat() < 0.5){
                     create_car(id, "Lamborghini");
+                    this.lamborghini_counter ++;
+                    System.out.println("Se ha creado un carro Lamborghini");
                 }else{
                     create_car(id, "Bugatti");
+                    this.bugatti_counter ++;
+                    System.out.println("Se ha creado un carro Bugatti");
                 };
             };
             
@@ -189,7 +211,47 @@ public class Administrator {
             this.lamborghini_reinforcement_queue.dequeue();
             this.priority1b.enqueue(car1);
             this.priority1l.enqueue(car2);
+            this.lamborghini_counter ++;
+            this.bugatti_counter ++;
         };
     };
     
+    public Car select_car1(){
+        if (this.priority1b.size != 0) {
+            this.selected1 = this.priority1b.first.value;
+            this.priority1b.dequeue();
+            this.bugatti_counter --;
+        }else if(this.priority2b.size != 0){
+            this.selected1 = this.priority2b.first.value;
+            this.priority2b.dequeue();
+            this.bugatti_counter --;
+        }else if(this.priority3b.size != 0){
+            this.selected1 = this.priority3b.first.value;
+            this.priority3b.dequeue();
+            this.bugatti_counter --;
+        }else{
+            System.out.println("No hay carros disponibles");
+        };
+        return this.selected1;
+    };
+        
+    public Car select_car2(){
+        if (this.priority1l.size != 0) {
+            this.selected2 = this.priority1l.first.value;
+            this.priority1l.dequeue();
+            this.lamborghini_counter --;
+        }else if(this.priority2l.size != 0){
+            this.selected2 = this.priority2l.first.value;
+            this.priority2l.dequeue();
+            this.lamborghini_counter --;
+        }else if(this.priority3l.size != 0){
+            this.selected2 = this.priority3l.first.value;
+            this.priority3l.dequeue();
+            this.lamborghini_counter --;
+        }else{
+            System.out.println("No hay carros disponibles");
+        };
+        return this.selected2;
+    };
+
 };

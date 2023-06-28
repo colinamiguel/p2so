@@ -14,13 +14,11 @@ public class Queue {
     public int size;
     public QueueNode first;
     public QueueNode last;
-    public int priority;
     
-    public Queue(int priority){
+    public Queue(){
         this.size = 0;
         this.first = null;
         this.last = null;
-        this.priority = priority;
     };
 
     public int getSize() {
@@ -46,34 +44,33 @@ public class Queue {
     public void setLast(QueueNode last) {
         this.last = last;
     };
-
-    public int getPriority() {
-        return priority;
-    };
-
-    public void setPriority(int priority) {
-        this.priority = priority;
-    };  
     
     public void enqueue(Car car){
         QueueNode node = new QueueNode(car);
         if(this.size == 0){
+            System.out.println("tamano cero");
             this.first = this.last = node;
             this.size = this.size + 1;
+            System.out.println("se ha encolado el carro de id " + node.value.id + " de marca: " + node.value.make);
         }else{
             QueueNode aux = this.last;
             aux.setNext(node);
             this.last = node;
             this.size = this.size + 1;
+            System.out.println("se ha encolado el carro de id " + node.value.id + " de marca: " + node.value.make);
         };
     };
     
     public void dequeue(){
         if (this.size == 0){}else if(this.size == 1){
+            System.out.println("se ha desencolado el carro de id " + this.first.value.id + " de marca: " + this.first.value.make);
             this.first = this.last = null;
+            this.size = this.size - 1;
         }else if(this.size > 1){
+            System.out.println("se ha desencolado el carro de id " + this.first.value.id + " de marca: " + this.first.value.make);
             QueueNode aux = this.first.getNext();
             this.first = aux;
+            this.size = this.size - 1;
         };
     };
     
