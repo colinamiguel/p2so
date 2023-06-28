@@ -5,6 +5,7 @@
  */
 package Classes;
 
+import Classes.Interfaz.Interface;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,7 +24,10 @@ public class Main {
 //        Queue bugatti_reinforcent_queue, Queue lamborghini_reinforcement_queue, 
 //        Queue priority1b, Queue priority2b, Queue priority3b,
 //        Queue priority1l, Queue priority2l, Queue priority3l
-        
+
+        Interface dashboard = new Interface();
+        dashboard.setVisible(true);
+                
         Queue bugatti_reinforcent_queue = new Queue();
         Queue lamborghini_reinforcement_queue = new Queue();
         Queue priority1b = new Queue();
@@ -33,10 +37,10 @@ public class Main {
         Queue priority2l = new Queue();
         Queue priority3l = new Queue();
         
-        
         Administrator administrator = new Administrator(bugatti_reinforcent_queue, lamborghini_reinforcement_queue,
-                                          priority1b, priority2b, priority3b, priority1l, priority2l, priority3l);
-        AI ai = new AI(administrator);
+                                          priority1b, priority2b, priority3b, priority1l, priority2l, priority3l,
+                                          dashboard);
+        AI ai = new AI(administrator, dashboard);
         for(int i = 1; i <= 5; i++){
            administrator.create_car(i, "Lamborghini");
            administrator.create_car(i, "Bugatti");
@@ -46,9 +50,13 @@ public class Main {
             
             if (administrator.bugatti_counter >=1 && administrator.lamborghini_counter >=1) {
                 System.out.println("*****Comienza la carrera*****");
+                //dashboard.message.setText("Comenzando la Carrera.");
                 System.out.println("Calculando los resultados");
+                dashboard.aistatus.setText("Calculando Resultados.");
                 try {
                     Thread.sleep(10000);
+                    dashboard.aistatus.setText("Esperando por el Administrador.");
+                    dashboard.message.setText("Esperando la Próxima Carrera.");
                     ai.race();
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,9 +64,9 @@ public class Main {
                 
             }else{
                 System.out.println("No hay carros disponibles para competir.");
+                dashboard.aistatus.setText("Esperando por el Administrador.");
+                dashboard.message.setText("No hay carros Disponibles para Competir.");
             };
-            
-            
         }
         
     };
